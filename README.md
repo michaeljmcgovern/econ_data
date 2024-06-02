@@ -2,3 +2,4 @@ A repository for downloading economic and other policy relevant data (including 
 
 Includes API call functionality for the following public databases:
 - Eurostat
+- World Bank

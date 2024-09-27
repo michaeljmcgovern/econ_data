@@ -14,8 +14,7 @@ PRINT_COUNTRIES = True
 
 def open_iea_webpage_in_chrome(url) -> webdriver.Chrome:
     # Load webpage in Chrome
-    service = Service(executable_path='IEA/chromedriver')
-    driver = webdriver.Chrome(service=service)
+    driver = webdriver.Chrome()
     driver.get(url)
     return driver
 
@@ -66,9 +65,9 @@ def get_iea_fuels(print_fuels: bool) -> list:
         driver = open_iea_data_browser_tables()
 
         # Get fuel list
-        fuel_select = driver.find_elements(By.CSS_SELECTOR, "select")[2]
-        fuel_options = fuel_select.find_elements(By.CSS_SELECTOR, 'option')
-        fuels = [option.get_attribute('innerHTML').strip() for option in fuel_options]
+        fuel_div = driver.find_elements(By.CLASS_NAME, "a-button-group")[1]
+        fuel_buttons = fuel_div.find_elements(By.CLASS_NAME, 'a-button__label')
+        fuels = [option.get_attribute('innerHTML').strip() for option in fuel_buttons]
 
         driver.quit()
 
